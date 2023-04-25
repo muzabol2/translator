@@ -1,5 +1,5 @@
 import styled from "styled-components"
-import { useTranslations } from "../../lib/hooks/useTranslations"
+import { useTranslations } from "lib/hooks/useTranslations"
 
 export const TranslatorScreen: React.FC = () => {
    const T = useTranslations()
@@ -12,5 +12,5 @@ export const TranslatorScreen: React.FC = () => {
 }
 
 const Container = styled.div`
-   color: ${({ theme }) => theme.colors.typoography};
+   color: ${({ theme }) => theme.colors.typography};
 `

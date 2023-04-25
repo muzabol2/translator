@@ -1,6 +1,6 @@
 import styled, { ThemeProvider } from "styled-components"
-import { theme } from '../lib/styles'
-import { TranslatorScreen } from "../features/translator/TranslatorScreen"
+import { theme } from 'lib/styles'
+import { TranslatorScreen } from "features/translator/TranslatorScreen"
 
 export const App = () => (
    <ThemeProvider theme={theme}>
