@@ -7,6 +7,7 @@ export const TranslatorScreen: React.FC = () => {
    return (
       <Container>
         {T.appName}
+        <p>test</p>
       </Container>
    )
 }
