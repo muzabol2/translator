@@ -1,4 +1,4 @@
-import { Dictionary } from "lib/types";
+import { Dictionary } from "lib/types"
 
 export const en_GB: Dictionary = {
    appName: "Translator App",
