@@ -1,4 +1,5 @@
 import { Images } from "assets"
+import { APP_CONFIG } from "lib/config"
 import { useTranslations } from "lib/hooks"
 import styled from "styled-components"
 
@@ -10,15 +11,21 @@ export const Header = () => {
          <LogoContainer>
             <Logo src={Images.Logo} />
             <Title>
-               {T.appName}
+               {T.components.header.title}
             </Title>
          </LogoContainer>
          <LinkContainer>
-            <Link>
-               Github
+            <Link
+               href={APP_CONFIG.GITHUB_URL}
+               target="_blank"
+            >
+               <Logo src={Images.Github} />
             </Link>
-            <Link>
-               XXX
+            <Link
+               href={APP_CONFIG.YOUTUBE_URL}
+               target="_blank"
+            >
+               <Logo src={Images.YouTube} />
             </Link>
          </LinkContainer>
       </HeaderContainer>
@@ -26,7 +33,7 @@ export const Header = () => {
 }
 
 const HeaderContainer = styled.div`
-   height: 60px;
+   height: 50px;
    background-color: ${({ theme }) => theme.colors.foreground};
    padding: 0 15px;
    display: flex;
@@ -53,11 +60,11 @@ const Title = styled.h1`
    color: ${({ theme }) => theme.colors.typography};
 `
 
-const LinkContainer = styled.div`
-
-`
+const LinkContainer = styled.div``
 
 const Link = styled.a`
-
-
+   color: ${({ theme }) => theme.colors.typography};
+   text-decoration: underline;
+   cursor: pointer;
+   padding: 0 5px;
 `

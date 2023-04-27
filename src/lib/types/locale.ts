@@ -1,3 +1,12 @@
 export type Dictionary = {
-   appName: string,
+   companyName: string,
+   components: {
+      header: {
+         title: string,
+      },
+      footer: {
+         flatIcon: string,
+         libreTranslate: string,
+      }
+   }
 }

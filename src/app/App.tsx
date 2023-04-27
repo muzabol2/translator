@@ -19,5 +19,5 @@ const AppContainer = styled.div`
    background-color: ${({ theme }) => theme.colors.background};
    display: flex;
    flex-direction: column;
-   justify-content: space-between
+   justify-content: space-between;
 `
