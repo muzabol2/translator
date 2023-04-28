@@ -7,6 +7,16 @@ export type Dictionary = {
       footer: {
          flatIcon: string,
          libreTranslate: string,
-      }
-   }
+      },
+      message: {
+         tryAgain: string,
+      },
+   },
+   screen: {
+      translator: {
+         loading: string,
+         error: string,
+         empty: string,
+      },
+   },
 }

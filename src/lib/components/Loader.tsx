@@ -1,12 +1,15 @@
 import styled from "styled-components"
 
-export const Loader = () => {
-
-   return (
-      <ActivityIndicator>
-      </ActivityIndicator>
-   )
+type Props = {
+   children?: React.ReactNode
 }
+
+export const Loader = ({ children }: Props) => (
+   <LoaderContainer>
+      <ActivityIndicator />
+      {children}
+   </LoaderContainer>
+)
 
 const ActivityIndicator = styled.div`
    width: 100%;
@@ -23,4 +26,14 @@ const ActivityIndicator = styled.div`
          width: 100%;
       }
    }
+`
+
+const LoaderContainer = styled.div`
+   width: 100%;
+   display: flex;
+   flex-direction: column;;
+   justify-content: center;
+   gap: 20px;
+   text-align: center;
+   color: ${({ theme }) => theme.colors.typography};
 `

@@ -8,8 +8,17 @@ export const en_GB: Dictionary = {
       },
       footer: {
          flatIcon: "flaticon",
-         libreTranslate: "LibreTranslate"
-      }
-   }
-   
+         libreTranslate: "LibreTranslate",
+      },
+      message: {
+         tryAgain: "Try again",
+      },
+   },
+   screen: {
+      translator: {
+         loading: "Fetching supported languages...",
+         error: "Something went wrong...",
+         empty: "No supported language",
+      },
+   },
 }
