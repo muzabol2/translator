@@ -2,15 +2,19 @@ import { createRef, useEffect } from "react"
 import styled from "styled-components"
 
 type TextInputProps = {
+   value?: string,
    autoFocus?: boolean,
    disabled?: boolean,
    placeholder?: string,
+   onChangeText?(text: string): void,
 }
 
 export const TextInput = ({
+   value,
    autoFocus,
    disabled,
-   placeholder
+   placeholder,
+   onChangeText,
 }: TextInputProps) => {
    const inputRef = createRef<HTMLTextAreaElement>()
 
@@ -22,9 +26,11 @@ export const TextInput = ({
 
    return (
       <Input
+         value={value}
          ref={inputRef}
          disabled={disabled}
          placeholder={disabled ? '' : placeholder}
+         onChange={e => onChangeText && onChangeText(e.target.value)}
       />
    )
 }

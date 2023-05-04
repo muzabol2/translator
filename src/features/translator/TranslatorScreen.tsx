@@ -21,6 +21,7 @@ export const TranslatorScreen = ({
 }: TranslatorScreenProps
 ) => {
    const T = useTranslations()
+   const [query, setQuery] = useState<string>('')
    const [
       selectedLanguages,
       setSelectedLanguages
@@ -43,8 +44,10 @@ export const TranslatorScreen = ({
                   selectedLanguage={selectedLanguages.source}
                />
                <TextInput
+                  value={query}
                   autoFocus
                   placeholder={T.screens.translator.sourceInputPlaceholder}
+                  onChangeText={setQuery}
                />
                <LoaderContainer>
                   <Loader />
