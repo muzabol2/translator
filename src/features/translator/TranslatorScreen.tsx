@@ -1,63 +1,24 @@
+import { useState } from "react";
 import styled from "styled-components"
 import {
    Confidence,
    ExchangeLanguage,
    Loader,
-   Message,
    SelectLanguage,
    TextCounter,
    TextInput
 } from "lib/components"
-import { useSupportedLanguages, useTranslations } from "lib/hooks"
-import { useEffect, useState } from "react"
-import { Language } from "lib/models/index."
+import { Language, LanguageCode } from "lib/models"
+import { SelectedLanguages } from "./types";
 
-export const TranslatorScreen = () => {
-   const T = useTranslations()
-   const [languages, setLanguages] = useState<Language[]>([])
-   const {
-      isLoading,
-      hasError,
-      fetch: getSupportedLanguages
-   } = useSupportedLanguages(
-      setLanguages
-   )
+type TranslatorScreenProps = {
+   languages: Language[],
+}
 
-   useEffect(() => {
-      getSupportedLanguages()
-   }, [])
-
-   if (isLoading) {
-      return (
-         <FetchLoaderContainer>
-            <Loader>
-               {T.screen.translator.loading}
-            </Loader>
-         </FetchLoaderContainer>
-      )
-   }
-
-   if (hasError) {
-      return (
-         <CenterContainer>
-            <Message
-               message={T.screen.translator.error}
-               withButton
-               onClick={() => getSupportedLanguages()}
-            />
-         </CenterContainer>
-      )
-   }
-
-   if (languages?.length === 0) {
-      return (
-         <CenterContainer>
-            <Message
-               message={T.screen.translator.empty}
-            />
-         </CenterContainer>
-      )
-   }
+export const TranslatorScreen = ({
+   languages
+}: TranslatorScreenProps
+) => {
 
    return (
       <Container>
@@ -86,6 +47,7 @@ export const TranslatorScreen = () => {
    )
 }
 
+
 const Container = styled.div`
    display: flex;
    flex-direction: column;
@@ -110,19 +72,8 @@ const LoaderContainer = styled.div`
    padding: 5px 10px;
 `
 
-const FetchLoaderContainer = styled.div`
-   width: 50%;
-   display: flex;
-   align-self: center;
-`
-
 const InputFooter = styled.div`
    display: flex;
    flex-direction: row;
    justify-content: space-between;
-`
-
-const CenterContainer = styled.div`
-   display: flex;
-   justify-content: center;
 `

@@ -1,6 +1,9 @@
 import { Dictionary } from "lib/types"
 
 export const en_GB: Dictionary = {
+   common: {
+      autoTranslate: "Auto translate",
+   },
    companyName: 'Muzabol',
    components: {
       header: {

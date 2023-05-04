@@ -1,10 +1,12 @@
 import { APP_CONFIG } from "lib/config"
-import { Language } from "lib/models/Language"
+import { useTranslations } from "lib/hooks"
+import { Language, LanguageCode } from "lib/models/Language"
 import { useState } from "react"
 
 export const useSupportedLanguages = (
    onSuccess: (languages: Language[]) => void
 ) => {
+   const T = useTranslations()
    const [isLoading, setIsLoading] = useState<boolean>(false)
    const [hasError, setHasError] = useState<boolean>(false)
 
@@ -23,7 +25,15 @@ export const useSupportedLanguages = (
                throw response
             })
             .then(response => response.json())
-            .then(onSuccess)
+            .then(languages => {
+               onSuccess([
+                  {
+                     code: LanguageCode.Auto,
+                     name: T.common.autoTranslate,
+                  },
+                  ...languages,
+               ])
+            })
             .catch(() => {
                setHasError(true)
             })

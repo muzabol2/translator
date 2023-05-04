@@ -1,7 +1,14 @@
 export type Language = {
-   code: string,
+   code: LanguageCode,
    name: string,
-   targets: [
-      string
-   ],
-} 
+   targets: [string],
+}
+
+export enum LanguageCode {
+   Auto = 'auto',
+   English = 'en',
+   Chinese = 'zh',
+   Polish = 'pl',
+   German = 'de',
+   Spanish = 'es',
+}
