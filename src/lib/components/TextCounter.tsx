@@ -1,10 +1,18 @@
 import styled from "styled-components"
 
-export const TextCounter = () => {
+type TextCounterProps = {
+   counter: number,
+   limit: number,
+}
+
+export const TextCounter = ({
+   counter,
+   limit,
+}: TextCounterProps) => {
 
    return (
       <Counter>
-         0/5000
+         {counter}/{limit}
       </Counter>
    )
 }

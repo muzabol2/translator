@@ -11,6 +11,7 @@ import {
 import { Language, LanguageCode } from "lib/models"
 import { SelectedLanguages } from "./types";
 import { useTranslations } from "lib/hooks";
+import { APP_CONFIG } from "lib/config";
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -22,13 +23,16 @@ export const TranslatorScreen = ({
 ) => {
    const T = useTranslations()
    const [query, setQuery] = useState<string>('')
-   const [
-      selectedLanguages,
-      setSelectedLanguages
-   ] = useState<SelectedLanguages>({
+   const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
       source: LanguageCode.Auto,
       target: LanguageCode.English,
    })
+
+   const handleQueryChange = (newQuery: string) => {
+      if (newQuery.length <= APP_CONFIG.TEXT_INPUT_LIMIT) {
+         setQuery(newQuery)
+      }
+   }
 
    return (
       <Container>
@@ -47,14 +51,17 @@ export const TranslatorScreen = ({
                   value={query}
                   autoFocus
                   placeholder={T.screens.translator.sourceInputPlaceholder}
-                  onChangeText={setQuery}
+                  onChangeText={handleQueryChange}
                />
                <LoaderContainer>
                   <Loader />
                </LoaderContainer>
                <InputFooter>
                   <Confidence />
-                  <TextCounter />
+                  <TextCounter
+                     counter={query.length}
+                     limit={APP_CONFIG.TEXT_INPUT_LIMIT}
+                  />
                </InputFooter>
             </InputContainer>
             <ExchangeLanguage
