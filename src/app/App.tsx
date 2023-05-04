@@ -26,7 +26,7 @@ export const App = () => {
          return (
             <FetchLoaderContainer>
                <Loader>
-                  {T.screen.translator.loading}
+                  {T.components.app.loading}
                </Loader>
             </FetchLoaderContainer>
          )
@@ -36,7 +36,7 @@ export const App = () => {
          return (
             <CenterContainer>
                <Message
-                  message={T.screen.translator.error}
+                  message={T.components.app.error}
                   withButton
                   onClick={() => getSupportedLanguages()}
                />
@@ -48,7 +48,7 @@ export const App = () => {
          return (
             <CenterContainer>
                <Message
-                  message={T.screen.translator.empty}
+                  message={T.components.app.empty}
                />
             </CenterContainer>
          )

@@ -9,7 +9,7 @@ export const Footer = () => {
    return (
       <FooterContainer>
          <PlaceholderContainer>
-            &copy; {year} {T.companyName}
+            &copy; {year} {T.common.companyName}
          </PlaceholderContainer>
          <LinkContainer>
             <Link

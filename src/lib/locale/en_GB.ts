@@ -3,9 +3,14 @@ import { Dictionary } from "lib/types"
 export const en_GB: Dictionary = {
    common: {
       autoTranslate: "Auto translate",
+      companyName: 'Muzabol',
    },
-   companyName: 'Muzabol',
    components: {
+      app: {
+         loading: "Fetching supported languages...",
+         error: "Something went wrong...",
+         empty: "No supported language",
+      },
       header: {
          title: "translator",
       },
@@ -15,13 +20,6 @@ export const en_GB: Dictionary = {
       },
       message: {
          tryAgain: "Try again",
-      },
-   },
-   screen: {
-      translator: {
-         loading: "Fetching supported languages...",
-         error: "Something went wrong...",
-         empty: "No supported language",
       },
    },
 }
