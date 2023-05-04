@@ -22,4 +22,9 @@ export const en_GB: Dictionary = {
          tryAgain: "Try again",
       },
    },
+   screens: {
+      translator: {
+         sourceInputPlaceholder: "Enter text to be translated...",
+      },
+   },
 }

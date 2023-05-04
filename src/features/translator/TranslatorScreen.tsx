@@ -10,6 +10,7 @@ import {
 } from "lib/components"
 import { Language, LanguageCode } from "lib/models"
 import { SelectedLanguages } from "./types";
+import { useTranslations } from "lib/hooks";
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -19,6 +20,7 @@ export const TranslatorScreen = ({
    languages
 }: TranslatorScreenProps
 ) => {
+   const T = useTranslations()
    const [
       selectedLanguages,
       setSelectedLanguages
@@ -40,7 +42,10 @@ export const TranslatorScreen = ({
                   }))}
                   selectedLanguage={selectedLanguages.source}
                />
-               <TextInput />
+               <TextInput
+                  autoFocus
+                  placeholder={T.screens.translator.sourceInputPlaceholder}
+               />
                <LoaderContainer>
                   <Loader />
                </LoaderContainer>
@@ -66,7 +71,9 @@ export const TranslatorScreen = ({
                   }))}
                   selectedLanguage={selectedLanguages.target}
                />
-               <TextInput />
+               <TextInput
+                  disabled
+               />
                <LoaderContainer>
                   <Loader />
                </LoaderContainer>

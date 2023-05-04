@@ -20,4 +20,9 @@ export type Dictionary = {
          tryAgain: string,
       },
    },
+   screens: {
+      translator: {
+         sourceInputPlaceholder: string,
+      },
+   },
 }

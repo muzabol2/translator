@@ -1,8 +1,31 @@
+import { createRef, useEffect } from "react"
 import styled from "styled-components"
 
-export const TextInput = () => {
+type TextInputProps = {
+   autoFocus?: boolean,
+   disabled?: boolean,
+   placeholder?: string,
+}
+
+export const TextInput = ({
+   autoFocus,
+   disabled,
+   placeholder
+}: TextInputProps) => {
+   const inputRef = createRef<HTMLTextAreaElement>()
+
+   useEffect(() => {
+      if (!disabled && autoFocus) {
+         inputRef.current?.focus()
+      }
+   }, [])
+
    return (
-      <Input placeholder="type here" />
+      <Input
+         ref={inputRef}
+         disabled={disabled}
+         placeholder={disabled ? '' : placeholder}
+      />
    )
 }
 
