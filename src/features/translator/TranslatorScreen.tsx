@@ -19,12 +19,27 @@ export const TranslatorScreen = ({
    languages
 }: TranslatorScreenProps
 ) => {
+   const [
+      selectedLanguages,
+      setSelectedLanguages
+   ] = useState<SelectedLanguages>({
+      source: LanguageCode.Auto,
+      target: LanguageCode.English,
+   })
 
    return (
       <Container>
          <TranslatorContainer>
             <InputContainer>
-               <SelectLanguage />
+               <SelectLanguage
+                  languages={languages}
+                  exclude={[selectedLanguages.target]}
+                  onChange={newCode => setSelectedLanguages(prevState => ({
+                     ...prevState,
+                     source: newCode,
+                  }))}
+                  selectedLanguage={selectedLanguages.source}
+               />
                <TextInput />
                <LoaderContainer>
                   <Loader />
@@ -34,9 +49,23 @@ export const TranslatorScreen = ({
                   <TextCounter />
                </InputFooter>
             </InputContainer>
-            <ExchangeLanguage />
+            <ExchangeLanguage
+               hidden={selectedLanguages.source === LanguageCode.Auto}
+               onClick={() => setSelectedLanguages(prevState => ({
+                  source: prevState.target,
+                  target: prevState.source,
+               }))}
+            />
             <InputContainer>
-               <SelectLanguage />
+               <SelectLanguage
+                  languages={languages}
+                  exclude={[selectedLanguages.source, LanguageCode.Auto]}
+                  onChange={newCode => setSelectedLanguages(prevState => ({
+                     ...prevState,
+                     target: newCode,
+                  }))}
+                  selectedLanguage={selectedLanguages.target}
+               />
                <TextInput />
                <LoaderContainer>
                   <Loader />
