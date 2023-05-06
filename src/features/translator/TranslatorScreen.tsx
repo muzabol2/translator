@@ -1,5 +1,3 @@
-import { useState } from "react";
-import { useDebouncedCallback } from "use-debounce";
 import styled from "styled-components"
 import {
    Confidence,
@@ -9,11 +7,10 @@ import {
    TextCounter,
    TextInput
 } from "lib/components"
-import { AutoDetectedLanguage, Language, LanguageCode } from "lib/models"
+import { Language, LanguageCode } from "lib/models"
 import { useTranslations } from "lib/hooks";
 import { APP_CONFIG } from "lib/config";
-import { SelectedLanguages } from "./types";
-import { useAutoDetectedLanguage, useTranslateText } from "./actions";
+import { useLibreTranslate } from "./useLibreTranslate";
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -23,52 +20,20 @@ export const TranslatorScreen = ({
    languages,
 }: TranslatorScreenProps) => {
    const T = useTranslations()
-   const [translatedText, setTranslatedText] = useState<string>('')
-   const [query, setQuery] = useState<string>('')
-   const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
-   const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
-      source: LanguageCode.Auto,
-      target: LanguageCode.Chinese,
-   })
    const {
-      fetch: autoDetectLanguage,
-      isLoading: isDetectingLanguage,
-      hasError: hasErrorAutoDetectingLanguage,
-   } = useAutoDetectedLanguage(setAutoDetectedLanguage)
-   const {
-      fetch: translateText,
-      isLoading: inTranslatingText,
-      hasError: hasErrorTranslatingText,
-   } = useTranslateText(setTranslatedText)
-
-   const handleQueryChange = (newQuery: string) => {
-      if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT) {
-         return
-      }
-
-      setQuery(newQuery)
-      debounceAction(newQuery)
-   }
-
-   const debounceAction = useDebouncedCallback(
-      debouncedQuery => {
-         if (debouncedQuery.length < 5) {
-            return
-         }
-
-         selectedLanguages.source === LanguageCode.Auto
-            ? autoDetectLanguage({
-               q: debouncedQuery,
-            })
-            : translateText({
-               q: debouncedQuery,
-               source: selectedLanguages.source,
-               target: selectedLanguages.target,
-               format: 'text',
-            })
-      },
-      1000
-   )
+      selectedLanguages,
+      setSelectedLanguages,
+      query,
+      handleQueryChange,
+      autoDetectedLanguage,
+      setAutoDetectedLanguage,
+      debounceAction,
+      isDetectingLanguage,
+      hasErrorAutoDetectingLanguage,
+      translatedText,
+      hasErrorTranslatingText,
+      inTranslatingText,
+   } = useLibreTranslate()
 
    return (
       <Container>
