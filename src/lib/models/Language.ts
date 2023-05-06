@@ -1,7 +1,7 @@
 export type Language = {
    code: LanguageCode,
    name: string,
-   targets: [string],
+   targets?: [string],
 }
 
 export enum LanguageCode {

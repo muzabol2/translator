@@ -20,16 +20,15 @@ type TranslatorScreenProps = {
 }
 
 export const TranslatorScreen = ({
-   languages
-}: TranslatorScreenProps
-) => {
+   languages,
+}: TranslatorScreenProps) => {
    const T = useTranslations()
    const [translatedText, setTranslatedText] = useState<string>('')
    const [query, setQuery] = useState<string>('')
    const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
       source: LanguageCode.Auto,
-      target: LanguageCode.English,
+      target: LanguageCode.Chinese,
    })
    const {
       fetch: autoDetectLanguage,
@@ -58,8 +57,15 @@ export const TranslatorScreen = ({
          }
 
          selectedLanguages.source === LanguageCode.Auto
-            ? autoDetectLanguage(debouncedQuery)
-            : translateText(debouncedQuery, selectedLanguages)
+            ? autoDetectLanguage({
+               q: debouncedQuery,
+            })
+            : translateText({
+               q: debouncedQuery,
+               source: selectedLanguages.source,
+               target: selectedLanguages.target,
+               format: 'text',
+            })
       },
       1000
    )
