@@ -30,12 +30,12 @@ export const SelectLanguage = ({
          }
       >
          {filteredLanguages.map(language =>
-            <Option
+            <option
                key={language.key}
                value={language.key}
             >
                {language.label}
-            </Option>
+            </option>
          )}
       </Select>
    )
@@ -51,6 +51,5 @@ const Select = styled.select`
    color: ${({ theme }) => theme.colors.typography};
    height: 24px;
    padding: 0 10px;
+   border-radius: 8px;
 `
-
-const Option = styled.option``

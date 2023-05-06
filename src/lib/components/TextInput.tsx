@@ -53,6 +53,18 @@ const Input = styled.textarea<InputProps>`
    width: 400px;
    resize: none;
    font-size: 13px;
-   padding: 10px 15px
+   padding: 10px 15px;
+
+   @media(max-width: ${({ theme }) => theme.media.width.sm}px) {
+      width: 350px;
+   }
+
+   @media(max-height: ${({ theme }) => theme.media.height.md}px) {
+      height: 200px;
+   }
+
+   @media(max-height: ${({ theme }) => theme.media.height.sm}px) {
+      height: 150px;
+   }
 `
 

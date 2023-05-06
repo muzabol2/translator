@@ -25,6 +25,13 @@ export const ExchangeLanguage = ({
 const ExchangeContainer = styled.div`
    width: 25px;
    height: 25px;
+   display: flex;
+   flex-direction: row;
+
+   @media(min-width: ${({ theme }) => theme.media.width.md}px) {
+      width: 100px;
+      justify-content: center;
+   }
 `
 const Exchange = styled.img`
    cursor: pointer;

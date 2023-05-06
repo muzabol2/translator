@@ -1,4 +1,3 @@
-import styled from "styled-components"
 import {
    Confidence,
    ExchangeLanguage,
@@ -11,6 +10,7 @@ import { Language, LanguageCode } from "lib/models"
 import { useTranslations } from "lib/hooks";
 import { APP_CONFIG } from "lib/config";
 import { useLibreTranslate } from "./useLibreTranslate";
+import * as $ from './styles'
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -36,9 +36,9 @@ export const TranslatorScreen = ({
    } = useLibreTranslate()
 
    return (
-      <Container>
-         <TranslatorContainer>
-            <InputContainer>
+      <$.Container>
+         <$.TranslatorContainer>
+            <$.InputContainer>
                <SelectLanguage
                   languages={languages}
                   exclude={[selectedLanguages.target]}
@@ -54,12 +54,12 @@ export const TranslatorScreen = ({
                   placeholder={T.screens.translator.sourceInputPlaceholder}
                   onChangeText={handleQueryChange}
                />
-               <LoaderContainer>
+               <$.LoaderContainer>
                   {isDetectingLanguage && (
                      <Loader />
                   )}
-               </LoaderContainer>
-               <InputFooter>
+               </$.LoaderContainer>
+               <$.InputFooter>
                   <Confidence
                      autoDetectedLanguage={autoDetectedLanguage}
                      onClick={() => {
@@ -76,8 +76,8 @@ export const TranslatorScreen = ({
                      counter={query.length}
                      limit={APP_CONFIG.TEXT_INPUT_LIMIT}
                   />
-               </InputFooter>
-            </InputContainer>
+               </$.InputFooter>
+            </$.InputContainer>
             <ExchangeLanguage
                hidden={selectedLanguages.source === LanguageCode.Auto}
                onClick={() => setSelectedLanguages(prevState => ({
@@ -85,7 +85,7 @@ export const TranslatorScreen = ({
                   target: prevState.source,
                }))}
             />
-            <InputContainer>
+            <$.InputContainer>
                <SelectLanguage
                   languages={languages}
                   exclude={[selectedLanguages.source, LanguageCode.Auto]}
@@ -100,44 +100,13 @@ export const TranslatorScreen = ({
                   value={translatedText}
                   hasError={hasErrorTranslatingText}
                />
-               <LoaderContainer>
+               <$.LoaderContainer>
                   {inTranslatingText && (
                      <Loader />
                   )}
-               </LoaderContainer>
-            </InputContainer>
-         </TranslatorContainer>
-      </Container>
+               </$.LoaderContainer>
+            </$.InputContainer>
+         </$.TranslatorContainer>
+      </$.Container>
    )
 }
-
-const Container = styled.div`
-   display: flex;
-   flex-direction: column;
-   flex: 1;
-   color: ${({ theme }) => theme.colors.typography};
-`
-
-const TranslatorContainer = styled.div`
-   display: flex;
-   flex-direction: row;
-   justify-content: space-around;
-   margin-top: 50px;
-`
-
-const InputContainer = styled.div`
-   display: flex;
-   flex-direction: column;
-   padding: 0 5px;
-`
-
-const LoaderContainer = styled.div`
-   padding: 5px 10px;
-   height: 2px;
-`
-
-const InputFooter = styled.div`
-   display: flex;
-   flex-direction: row;
-   justify-content: space-between;
-`
