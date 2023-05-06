@@ -18,7 +18,7 @@ const ActivityIndicator = styled.div`
    border-radius: 4px;
    animation: loading 1s linear infinite alternate;
 
-   @keyframes loading2 {
+   @keyframes loading {
       0% {
          width: 0;
       }

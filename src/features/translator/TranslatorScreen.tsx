@@ -13,7 +13,7 @@ import { AutoDetectedLanguage, Language, LanguageCode } from "lib/models"
 import { useTranslations } from "lib/hooks";
 import { APP_CONFIG } from "lib/config";
 import { SelectedLanguages } from "./types";
-import { useAutoDetectedLanguage } from "./actions";
+import { useAutoDetectedLanguage, useTranslateText } from "./actions";
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -24,6 +24,7 @@ export const TranslatorScreen = ({
 }: TranslatorScreenProps
 ) => {
    const T = useTranslations()
+   const [translatedText, setTranslatedText] = useState<string>('')
    const [query, setQuery] = useState<string>('')
    const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
@@ -35,6 +36,11 @@ export const TranslatorScreen = ({
       isLoading: isDetectingLanguage,
       hasError: hasErrorAutoDetectingLanguage,
    } = useAutoDetectedLanguage(setAutoDetectedLanguage)
+   const {
+      fetch: translateText,
+      isLoading: inTranslatingText,
+      hasError: hasErrorTranslatingText,
+   } = useTranslateText(setTranslatedText)
 
    const handleQueryChange = (newQuery: string) => {
       if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT) {
@@ -42,18 +48,18 @@ export const TranslatorScreen = ({
       }
 
       setQuery(newQuery)
-      debounceAutoDetectLanguage(newQuery)
+      debounceAction(newQuery)
    }
 
-   const debounceAutoDetectLanguage = useDebouncedCallback(
+   const debounceAction = useDebouncedCallback(
       debouncedQuery => {
          if (debouncedQuery.length < 5) {
             return
          }
 
-         if (selectedLanguages.source === LanguageCode.Auto) {
-            autoDetectLanguage(debouncedQuery)
-         }
+         selectedLanguages.source === LanguageCode.Auto
+            ? autoDetectLanguage(debouncedQuery)
+            : translateText(debouncedQuery, selectedLanguages)
       },
       1000
    )
@@ -119,9 +125,13 @@ export const TranslatorScreen = ({
                />
                <TextInput
                   disabled
+                  value={translatedText}
+                  hasError={hasErrorTranslatingText}
                />
                <LoaderContainer>
-                  <Loader />
+                  {inTranslatingText && (
+                     <Loader />
+                  )}
                </LoaderContainer>
             </InputContainer>
          </TranslatorContainer>
