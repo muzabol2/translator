@@ -37,7 +37,7 @@ export const Confidence = ({
    return (
       <Container>
          <Percentage>
-            {confidence !== 0 && `${confidence}`}
+            {confidence !== 0 && `${confidence}%`}
          </Percentage>
          <Language
             onClick={() => !hasError && onClick()}

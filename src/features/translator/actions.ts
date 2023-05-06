@@ -62,7 +62,7 @@ export const useAutoDetectedLanguage = (
          fetch(`${APP_CONFIG.API_URL}/detect`, {
             method: 'POST',
             headers: {
-               'Content-Type': 'application/x-www-form-urlencoded',
+               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                q: query,
@@ -102,7 +102,7 @@ export const useTranslateText = (
          fetch(`${APP_CONFIG.API_URL}/translate`, {
             method: 'POST',
             headers: {
-               'Content-Type': 'application/x-www-form-urlencoded',
+               'Content-Type': 'application/json',
             },
             body: JSON.stringify({
                q: query,

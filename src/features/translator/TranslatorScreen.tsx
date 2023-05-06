@@ -97,6 +97,7 @@ export const TranslatorScreen = ({
                            source: autoDetectedLanguage?.language as LanguageCode,
                         }))
                         setAutoDetectedLanguage(undefined)
+                        debounceAction(query)
                      }}
                      hasError={hasErrorAutoDetectingLanguage && selectedLanguages.source === LanguageCode.Auto}
                   />

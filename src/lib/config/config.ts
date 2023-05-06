@@ -3,6 +3,6 @@ export const APP_CONFIG = {
    YOUTUBE_URL: 'https://youtu.be/R6_q0MwImTE',
    FLAT_ICON_URL: 'https://flaticon.com',
    LIBRE_TRANSLATE_URL: 'https://libretranslate.com',
-   API_URL: 'https://libretranslate.com',
+   API_URL: 'http://localhost:3001',
    TEXT_INPUT_LIMIT: 5000,
 }
