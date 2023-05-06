@@ -1,6 +1,7 @@
-import { useTranslations } from "lib/hooks"
-import { AutoDetectedLanguage } from "lib/models"
+import { useCallback } from 'react'
 import styled from "styled-components"
+import { useTranslations } from "lib/hooks"
+import { AutoDetectedLanguage, LanguageCode } from "lib/models"
 
 type LanguageProps = {
    disabled: boolean,
@@ -19,6 +20,19 @@ export const Confidence = ({
 }: ConfidenceProps) => {
    const T = useTranslations()
    const { confidence, language } = autoDetectedLanguage ?? { confidence: 0, language: '' }
+   const getDetectedLanguage = useCallback(() => {
+      if (!language) {
+         return undefined
+      }
+
+      const [detectedLanguage] = Object
+         .entries(LanguageCode)
+         .find(([, languageCode]) => language === languageCode) || []
+
+      return detectedLanguage
+         ? `(${detectedLanguage})`
+         : undefined
+   }, [language])
 
    return (
       <Container>
@@ -30,7 +44,7 @@ export const Confidence = ({
             disabled={hasError}
          >
             {hasError && T.components.confidence.error}
-            {language && `(${language})`}
+            {language && getDetectedLanguage()}
          </Language>
       </Container>
    )

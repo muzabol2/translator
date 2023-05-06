@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useDebouncedCallback } from "use-debounce";
 import styled from "styled-components"
 import {
    Confidence,
@@ -9,9 +10,9 @@ import {
    TextInput
 } from "lib/components"
 import { AutoDetectedLanguage, Language, LanguageCode } from "lib/models"
-import { SelectedLanguages } from "./types";
 import { useTranslations } from "lib/hooks";
 import { APP_CONFIG } from "lib/config";
+import { SelectedLanguages } from "./types";
 import { useAutoDetectedLanguage } from "./actions";
 
 type TranslatorScreenProps = {
@@ -41,11 +42,21 @@ export const TranslatorScreen = ({
       }
 
       setQuery(newQuery)
-
-      if (selectedLanguages.source === LanguageCode.Auto) {
-         autoDetectLanguage(newQuery)
-      }
+      debounceAutoDetectLanguage(newQuery)
    }
+
+   const debounceAutoDetectLanguage = useDebouncedCallback(
+      debouncedQuery => {
+         if (debouncedQuery.length < 5) {
+            return
+         }
+
+         if (selectedLanguages.source === LanguageCode.Auto) {
+            autoDetectLanguage(debouncedQuery)
+         }
+      },
+      1000
+   )
 
    return (
       <Container>
@@ -74,11 +85,14 @@ export const TranslatorScreen = ({
                <InputFooter>
                   <Confidence
                      autoDetectedLanguage={autoDetectedLanguage}
-                     onClick={() => setSelectedLanguages(prevState => ({
-                        ...prevState,
-                        source: autoDetectedLanguage?.language as LanguageCode,
-                     }))}
-                     hasError={hasErrorAutoDetectingLanguage}
+                     onClick={() => {
+                        setSelectedLanguages(prevState => ({
+                           ...prevState,
+                           source: autoDetectedLanguage?.language as LanguageCode,
+                        }))
+                        setAutoDetectedLanguage(undefined)
+                     }}
+                     hasError={hasErrorAutoDetectingLanguage && selectedLanguages.source === LanguageCode.Auto}
                   />
                   <TextCounter
                      counter={query.length}
