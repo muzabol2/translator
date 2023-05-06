@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
-import styled, { ThemeProvider } from "styled-components"
+import { ThemeProvider } from "styled-components"
 import { theme } from 'lib/styles'
+import * as $ from "./styles"
 import { TranslatorScreen, translatorActions } from "features/translator"
 import { Footer, Header, Loader, Message } from "lib/components"
 import { Language } from "lib/models/Language"
@@ -12,9 +13,9 @@ export const App = () => {
    const {
       isLoading,
       hasError,
-      fetch: getSupportedLanguages
+      fetch: getSupportedLanguages,
    } = translatorActions.useSupportedLanguages(
-      setLanguages
+      setLanguages,
    )
 
    useEffect(() => {
@@ -24,33 +25,33 @@ export const App = () => {
    const getLayout = () => {
       if (isLoading) {
          return (
-            <FetchLoaderContainer>
+            <$.FetchLoaderContainer>
                <Loader>
                   {T.components.app.loading}
                </Loader>
-            </FetchLoaderContainer>
+            </$.FetchLoaderContainer>
          )
       }
 
       if (hasError) {
          return (
-            <CenterContainer>
+            <$.CenterContainer>
                <Message
                   message={T.components.app.error}
                   withButton
                   onClick={() => getSupportedLanguages()}
                />
-            </CenterContainer>
+            </$.CenterContainer>
          )
       }
 
       if (languages?.length === 0) {
          return (
-            <CenterContainer>
+            <$.CenterContainer>
                <Message
                   message={T.components.app.empty}
                />
-            </CenterContainer>
+            </$.CenterContainer>
          )
       }
       
@@ -61,31 +62,11 @@ export const App = () => {
 
    return (
       <ThemeProvider theme={theme}>
-         <AppContainer>
+         <$.AppContainer>
             <Header />
             {getLayout()}
             <Footer />
-         </AppContainer>
+         </$.AppContainer>
       </ThemeProvider>
    )
 }
-
-const AppContainer = styled.div`
-   width: 100%;
-   height: 100vh;
-   background-color: ${({ theme }) => theme.colors.background};
-   display: flex;
-   flex-direction: column;
-   justify-content: space-between;
-`
-
-const FetchLoaderContainer = styled.div`
-   width: 50%;
-   display: flex;
-   align-self: center;
-`
-
-const CenterContainer = styled.div`
-   display: flex;
-   justify-content: center;
-`

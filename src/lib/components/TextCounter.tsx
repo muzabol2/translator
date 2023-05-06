@@ -8,14 +8,11 @@ type TextCounterProps = {
 export const TextCounter = ({
    counter,
    limit,
-}: TextCounterProps) => {
-
-   return (
-      <Counter>
-         {counter}/{limit}
-      </Counter>
-   )
-}
+}: TextCounterProps) => (
+   <Counter>
+      {counter}/{limit}
+   </Counter>
+)
 
 const Counter = styled.div`
    color: ${({ theme }) => theme.colors.typography};

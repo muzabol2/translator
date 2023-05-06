@@ -11,7 +11,7 @@ export const useLibreTranslate = () => {
    const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
       source: LanguageCode.Auto,
-      target: LanguageCode.Chinese,
+      target: LanguageCode.English,
    })
    const {
       fetch: autoDetectLanguage,

@@ -42,10 +42,14 @@ export const TranslatorScreen = ({
                <SelectLanguage
                   languages={languages}
                   exclude={[selectedLanguages.target]}
-                  onChange={newCode => setSelectedLanguages(prevState => ({
-                     ...prevState,
-                     source: newCode,
-                  }))}
+                  onChange={newCode => {
+                     setSelectedLanguages(prevState => ({
+                        ...prevState,
+                        source: newCode,
+                     }))
+                     setAutoDetectedLanguage(undefined)
+                     debounceAction(query)
+                  }}
                   selectedLanguage={selectedLanguages.source}
                />
                <TextInput
@@ -80,19 +84,26 @@ export const TranslatorScreen = ({
             </$.InputContainer>
             <ExchangeLanguage
                hidden={selectedLanguages.source === LanguageCode.Auto}
-               onClick={() => setSelectedLanguages(prevState => ({
-                  source: prevState.target,
-                  target: prevState.source,
-               }))}
+               onClick={() => {
+                  setSelectedLanguages(prevState => ({
+                     source: prevState.target,
+                     target: prevState.source,
+                  }))
+                  handleQueryChange(translatedText)
+                  debounceAction(query)
+               }}
             />
             <$.InputContainer>
                <SelectLanguage
                   languages={languages}
                   exclude={[selectedLanguages.source, LanguageCode.Auto]}
-                  onChange={newCode => setSelectedLanguages(prevState => ({
-                     ...prevState,
-                     target: newCode,
-                  }))}
+                  onChange={newCode => {
+                     setSelectedLanguages(prevState => ({
+                        ...prevState,
+                        target: newCode,
+                     }))
+                     debounceAction(query)
+                  }}
                   selectedLanguage={selectedLanguages.target}
                />
                <TextInput

@@ -22,7 +22,7 @@ export const useFetch = <Response, Request = {}>(
    return {
       isLoading,
       hasError,
-      fetch: (params: Request) => {
+      fetch: (params?: Request) => {
          setIsLoading(true)
          setHasError(false)
 

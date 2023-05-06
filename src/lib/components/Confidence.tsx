@@ -20,6 +20,7 @@ export const Confidence = ({
 }: ConfidenceProps) => {
    const T = useTranslations()
    const { confidence, language } = autoDetectedLanguage ?? { confidence: 0, language: '' }
+
    const getDetectedLanguage = useCallback(() => {
       if (!language) {
          return undefined

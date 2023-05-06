@@ -59,10 +59,3 @@ export const useTranslateText = (
       onSuccess: ({ translatedText }) =>
          onSuccess(translatedText)
    })
-
-// body: JSON.stringify({
-//    q: query,
-//    source: selectedLanguage.source,
-//    target: selectedLanguage.target,
-//    format: 'text',
-// })

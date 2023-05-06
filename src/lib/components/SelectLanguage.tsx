@@ -26,14 +26,10 @@ export const SelectLanguage = ({
    return (
       <Select
          value={selectedLanguage}
-         onChange={e => onChange(e.target.value as LanguageCode)
-         }
+         onChange={e => onChange(e.target.value as LanguageCode)}
       >
          {filteredLanguages.map(language =>
-            <option
-               key={language.key}
-               value={language.key}
-            >
+            <option key={language.key} value={language.key}>
                {language.label}
             </option>
          )}

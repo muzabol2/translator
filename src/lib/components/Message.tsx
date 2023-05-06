@@ -28,9 +28,7 @@ export const Message = ({
    )
 }
 
-const MessageContainer = styled.div`
-   
-`
+const MessageContainer = styled.div``
 
 const Text = styled.div`
    margin-bottom: 20px;
@@ -42,5 +40,5 @@ const Button = styled.div`
     padding: 10px 5px;
     text-align: center;
     border-radius: 8px;
-    background-color: ${({ theme }) => theme.colors.primary}
+    background-color: ${({ theme }) => theme.colors.primary};
 `
