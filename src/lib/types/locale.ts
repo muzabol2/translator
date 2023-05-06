@@ -19,6 +19,9 @@ export type Dictionary = {
       message: {
          tryAgain: string,
       },
+      confidence: {
+         error: string,
+      },
    },
    screens: {
       translator: {

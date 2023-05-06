@@ -30,6 +30,7 @@ const ActivityIndicator = styled.div`
 
 const LoaderContainer = styled.div`
    width: 100%;
+   height: 2px;
    display: flex;
    flex-direction: column;;
    justify-content: center;

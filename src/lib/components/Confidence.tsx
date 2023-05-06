@@ -1,14 +1,36 @@
+import { useTranslations } from "lib/hooks"
+import { AutoDetectedLanguage } from "lib/models"
 import styled from "styled-components"
 
-export const Confidence = () => {
+type LanguageProps = {
+   disabled: boolean,
+}
+
+type ConfidenceProps = {
+   autoDetectedLanguage?: AutoDetectedLanguage,
+   onClick(): void,
+   hasError: boolean,
+}
+
+export const Confidence = ({
+   autoDetectedLanguage,
+   onClick,
+   hasError,
+}: ConfidenceProps) => {
+   const T = useTranslations()
+   const { confidence, language } = autoDetectedLanguage ?? { confidence: 0, language: '' }
 
    return (
       <Container>
          <Percentage>
-            48%
+            {confidence !== 0 && `${confidence}`}
          </Percentage>
-         <Language>
-            (Polish)
+         <Language
+            onClick={() => !hasError && onClick()}
+            disabled={hasError}
+         >
+            {hasError && T.components.confidence.error}
+            {language && `(${language})`}
          </Language>
       </Container>
    )
@@ -17,16 +39,15 @@ export const Confidence = () => {
 const Container = styled.div`
    display: flex;
    flex-direction: row;
-
 `
 
 const Percentage = styled.span`
-   color: ${({ theme }) => theme.colors.primary}
+   color: ${({ theme }) => theme.colors.primary};
 `
 
-const Language = styled.a`
-   cursor: pointer;
-   text-decoration: underline;
+const Language = styled.a<LanguageProps>`
+   cursor: ${({ disabled }) => disabled ? undefined : 'pointer'};
+   text-decoration: ${({ disabled }) => disabled ? undefined : 'underline'};
    margin-left: 5px;
-   color: ${({ theme }) => theme.colors.primary}
+   color: ${({ theme, disabled }) => disabled ? theme.colors.error : theme.colors.primary};
 `

@@ -8,10 +8,11 @@ import {
    TextCounter,
    TextInput
 } from "lib/components"
-import { Language, LanguageCode } from "lib/models"
+import { AutoDetectedLanguage, Language, LanguageCode } from "lib/models"
 import { SelectedLanguages } from "./types";
 import { useTranslations } from "lib/hooks";
 import { APP_CONFIG } from "lib/config";
+import { useAutoDetectedLanguage } from "./actions";
 
 type TranslatorScreenProps = {
    languages: Language[],
@@ -23,14 +24,26 @@ export const TranslatorScreen = ({
 ) => {
    const T = useTranslations()
    const [query, setQuery] = useState<string>('')
+   const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
    const [selectedLanguages, setSelectedLanguages] = useState<SelectedLanguages>({
       source: LanguageCode.Auto,
       target: LanguageCode.English,
    })
+   const {
+      fetch: autoDetectLanguage,
+      isLoading: isDetectingLanguage,
+      hasError: hasErrorAutoDetectingLanguage,
+   } = useAutoDetectedLanguage(setAutoDetectedLanguage)
 
    const handleQueryChange = (newQuery: string) => {
-      if (newQuery.length <= APP_CONFIG.TEXT_INPUT_LIMIT) {
-         setQuery(newQuery)
+      if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT) {
+         return
+      }
+
+      setQuery(newQuery)
+
+      if (selectedLanguages.source === LanguageCode.Auto) {
+         autoDetectLanguage(newQuery)
       }
    }
 
@@ -54,10 +67,19 @@ export const TranslatorScreen = ({
                   onChangeText={handleQueryChange}
                />
                <LoaderContainer>
-                  <Loader />
+                  {isDetectingLanguage && (
+                     <Loader />
+                  )}
                </LoaderContainer>
                <InputFooter>
-                  <Confidence />
+                  <Confidence
+                     autoDetectedLanguage={autoDetectedLanguage}
+                     onClick={() => setSelectedLanguages(prevState => ({
+                        ...prevState,
+                        source: autoDetectedLanguage?.language as LanguageCode,
+                     }))}
+                     hasError={hasErrorAutoDetectingLanguage}
+                  />
                   <TextCounter
                      counter={query.length}
                      limit={APP_CONFIG.TEXT_INPUT_LIMIT}
@@ -93,7 +115,6 @@ export const TranslatorScreen = ({
    )
 }
 
-
 const Container = styled.div`
    display: flex;
    flex-direction: column;
@@ -116,6 +137,7 @@ const InputContainer = styled.div`
 
 const LoaderContainer = styled.div`
    padding: 5px 10px;
+   height: 2px;
 `
 
 const InputFooter = styled.div`
