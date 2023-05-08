@@ -1,17 +1,6 @@
-import styled from "styled-components"
+import styled from 'styled-components'
 
-type Props = {
-   children?: React.ReactNode
-}
-
-export const Loader = ({ children }: Props) => (
-   <LoaderContainer>
-      <ActivityIndicator />
-      {children}
-   </LoaderContainer>
-)
-
-const ActivityIndicator = styled.div`
+export const ActivityIndicator = styled.div`
    width: 100%;
    height: 2px;
    background-color: ${({ theme }) => theme.colors.primary};
@@ -28,7 +17,7 @@ const ActivityIndicator = styled.div`
    }
 `
 
-const LoaderContainer = styled.div`
+export const LoaderContainer = styled.div`
    width: 100%;
    height: 2px;
    display: flex;

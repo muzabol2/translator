@@ -1,25 +1,26 @@
-import { Dictionary } from "lib/types"
+import { Dictionary } from 'lib/types'
 
-export const en_GB: Dictionary = {
+// eslint-disable-next-line @typescript-eslint/naming-convention
+const en_GB: Dictionary = {
    common: {
-      autoTranslate: "Auto translate",
+      autoTranslate: 'Auto translate',
       companyName: 'Muzabol',
    },
    components: {
       app: {
-         loading: "Fetching supported languages...",
-         error: "Something went wrong...",
-         empty: "No supported language",
+         loading: 'Fetching supported languages...',
+         error: 'Something went wrong...',
+         empty: 'No supported language',
       },
       header: {
-         title: "translator",
+         title: 'translator',
       },
       footer: {
-         flatIcon: "flaticon",
-         libreTranslate: "LibreTranslate",
+         flatIcon: 'flaticon',
+         libreTranslate: 'LibreTranslate',
       },
       message: {
-         tryAgain: "Try again",
+         tryAgain: 'Try again',
       },
       confidence: {
          error: "Couldn't detect the language",
@@ -27,7 +28,9 @@ export const en_GB: Dictionary = {
    },
    screens: {
       translator: {
-         sourceInputPlaceholder: "Enter text to be translated...",
+         sourceInputPlaceholder: 'Enter text to be translated...',
       },
    },
 }
+
+export default en_GB

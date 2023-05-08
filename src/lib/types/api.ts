@@ -6,5 +6,5 @@ export enum HttpMethod {
    DELETE = 'delete',
 }
 
-export type onSuccess<Response> = (response: Response) => void
-export type onError = () => void
+export type OnSuccess<Response> = (response: Response) => void
+export type OnError = () => void

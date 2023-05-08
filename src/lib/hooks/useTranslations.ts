@@ -1,5 +1,4 @@
-import { en_GB } from "lib/locale"
+import { en_GB } from 'lib/locale'
 
-export const useTranslations = () => {
-   return en_GB
-}
+// eslint-disable-next-line import/prefer-default-export
+export const useTranslations = () => en_GB

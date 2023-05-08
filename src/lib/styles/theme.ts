@@ -1,4 +1,4 @@
-import { AppTheme } from "lib/types"
+import { AppTheme } from 'lib/types'
 
 export const theme: AppTheme = {
    colors: {
@@ -19,4 +19,6 @@ export const theme: AppTheme = {
          sm: 650,
       },
    },
-};
+}
+
+export default theme

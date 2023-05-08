@@ -1,6 +1,6 @@
-import { useState } from "react"
-import { HttpMethod, onError, onSuccess } from "lib/types"
-import { APP_CONFIG } from "lib/config"
+import { useState } from 'react'
+import { HttpMethod, OnError, OnSuccess } from 'lib/types'
+import { APP_CONFIG } from 'lib/config'
 
 type FetchProps = {
    url: string,
@@ -8,11 +8,11 @@ type FetchProps = {
 }
 
 type FetchActions<Response> = {
-   onSuccess: onSuccess<Response>,
-   onError?: onError,
+   onSuccess: OnSuccess<Response>,
+   onError?: OnError,
 }
 
-export const useFetch = <Response, Request = {}>(
+const useFetch = <Response, Request = Record<string, any>>(
    config: FetchProps,
    actions: FetchActions<Response>,
 ) => {
@@ -35,25 +35,29 @@ export const useFetch = <Response, Request = {}>(
                body: JSON.stringify({
                   ...params,
                }),
-            }
+            },
          }
 
          fetch(`${APP_CONFIG.API_URL}/${config.url}`, fetchConfig)
-            .then(response => {
+            .then((response) => {
                if (response.ok) {
                   return response
                }
-               throw response
+               throw new Error('Request failed')
             })
-            .then(response => response.json())
+            .then((response) => response.json())
             .then(actions.onSuccess)
             .catch(() => {
                setHasError(true)
-               actions.onError && actions.onError()
+               if (actions.onError) {
+                  actions.onError()
+               }
             })
             .finally(() => {
                setIsLoading(false)
             })
-      }
+      },
    }
 }
+
+export default useFetch

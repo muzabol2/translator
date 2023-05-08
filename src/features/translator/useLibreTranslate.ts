@@ -1,11 +1,11 @@
-import { useState } from "react"
-import { useDebouncedCallback } from "use-debounce"
-import { AutoDetectedLanguage, LanguageCode } from "lib/models"
-import { APP_CONFIG } from "lib/config"
-import { SelectedLanguages } from "./types"
-import { useAutoDetectedLanguage, useTranslateText } from "./actions"
+import { useState } from 'react'
+import { useDebouncedCallback } from 'use-debounce'
+import { AutoDetectedLanguage, LanguageCode } from 'lib/models'
+import { APP_CONFIG } from 'lib/config'
+import { SelectedLanguages } from './types'
+import { useAutoDetectedLanguage, useTranslateText } from './actions'
 
-export const useLibreTranslate = () => {
+export default function useLibreTranslate() {
    const [translatedText, setTranslatedText] = useState<string>('')
    const [query, setQuery] = useState<string>('')
    const [autoDetectedLanguage, setAutoDetectedLanguage] = useState<AutoDetectedLanguage>()
@@ -24,6 +24,28 @@ export const useLibreTranslate = () => {
       hasError: hasErrorTranslatingText,
    } = useTranslateText(setTranslatedText)
 
+   const debounceAction = useDebouncedCallback(
+      (debouncedQuery) => {
+         if (debouncedQuery.length < 5) {
+            return
+         }
+
+         if (selectedLanguages.source === LanguageCode.Auto) {
+            autoDetectLanguage({
+               q: debouncedQuery,
+            });
+         } else {
+            translateText({
+               q: debouncedQuery,
+               source: selectedLanguages.source,
+               target: selectedLanguages.target,
+               format: 'text',
+            });
+         }
+      },
+      1000,
+   )
+
    const handleQueryChange = (newQuery: string) => {
       if (newQuery.length > APP_CONFIG.TEXT_INPUT_LIMIT) {
          return
@@ -32,26 +54,6 @@ export const useLibreTranslate = () => {
       setQuery(newQuery)
       debounceAction(newQuery)
    }
-
-   const debounceAction = useDebouncedCallback(
-      debouncedQuery => {
-         if (debouncedQuery.length < 5) {
-            return
-         }
-
-         selectedLanguages.source === LanguageCode.Auto
-            ? autoDetectLanguage({
-               q: debouncedQuery,
-            })
-            : translateText({
-               q: debouncedQuery,
-               source: selectedLanguages.source,
-               target: selectedLanguages.target,
-               format: 'text',
-            })
-      },
-      1000
-   )
 
    return {
       selectedLanguages,

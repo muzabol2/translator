@@ -1,15 +1,15 @@
-import { useTranslations, useFetch } from "lib/hooks"
-import { HttpMethod } from "lib/types"
+import { useTranslations, useFetch } from 'lib/hooks'
+import { HttpMethod } from 'lib/types'
 import {
    AutoDetectedLanguage,
    Language,
-   LanguageCode
-} from "lib/models"
+   LanguageCode,
+} from 'lib/models'
 import {
    AutoDetectedLanguageRequest,
    TranslateTextRequest,
-   TranslateTextResponse
-} from "./types"
+   TranslateTextResponse,
+} from './types'
 
 export const useSupportedLanguages = (
    onSuccess: (languages: Language[]) => void,
@@ -20,7 +20,7 @@ export const useSupportedLanguages = (
       url: 'languages',
       method: HttpMethod.GET,
    }, {
-      onSuccess: languages => {
+      onSuccess: (languages) => {
          onSuccess([
             {
                code: LanguageCode.Auto,
@@ -34,28 +34,24 @@ export const useSupportedLanguages = (
 
 export const useAutoDetectedLanguage = (
    onSuccess: (autoDetectedLanguage: AutoDetectedLanguage) => void,
-) =>
-   useFetch<
+) => useFetch<
       AutoDetectedLanguage[],
       AutoDetectedLanguageRequest
    >({
       url: 'detect',
       method: HttpMethod.POST,
    }, {
-      onSuccess: ([autoDetectedLanguage]) =>
-         onSuccess(autoDetectedLanguage)
+      onSuccess: ([autoDetectedLanguage]) => onSuccess(autoDetectedLanguage),
    })
 
 export const useTranslateText = (
    onSuccess: (translatedText: string) => void,
-) =>
-   useFetch<
+) => useFetch<
       TranslateTextResponse,
       TranslateTextRequest
    >({
       url: 'translate',
       method: HttpMethod.POST,
    }, {
-      onSuccess: ({ translatedText }) =>
-         onSuccess(translatedText)
+      onSuccess: ({ translatedText }) => onSuccess(translatedText),
    })

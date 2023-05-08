@@ -1,4 +1,4 @@
-export const APP_CONFIG = {
+const APP_CONFIG = {
    GITHUB_URL: 'https://github.com/muzabol2/translator',
    YOUTUBE_URL: 'https://youtu.be/R6_q0MwImTE',
    FLAT_ICON_URL: 'https://flaticon.com',
@@ -6,3 +6,5 @@ export const APP_CONFIG = {
    API_URL: 'http://localhost:3001',
    TEXT_INPUT_LIMIT: 5000,
 }
+
+export default APP_CONFIG
