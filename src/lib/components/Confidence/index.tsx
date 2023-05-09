@@ -4,13 +4,12 @@ import { AutoDetectedLanguage, LanguageCode } from 'lib/models'
 import * as $ from './styles'
 
 type ConfidenceProps = {
-   // eslint-disable-next-line react/require-default-props
-   autoDetectedLanguage?: AutoDetectedLanguage, // TODO:
+   autoDetectedLanguage?: AutoDetectedLanguage,
    onClick(): void,
    hasError: boolean,
 }
 
-function Confidence({
+export default function Confidence({
    autoDetectedLanguage,
    onClick,
    hasError,
@@ -48,4 +47,6 @@ function Confidence({
    )
 }
 
-export default Confidence
+Confidence.defaultProps = {
+   autoDetectedLanguage: { confidence: 0, language: '' },
+}
