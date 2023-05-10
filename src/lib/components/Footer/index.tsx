@@ -9,7 +9,8 @@ function Footer() {
   return (
     <$.FooterContainer>
       <$.PlaceholderContainer>
-        {`&copy; ${year} ${T.common.companyName}`}
+        &copy;
+        {` ${year} ${T.common.companyName}`}
       </$.PlaceholderContainer>
       <$.LinkContainer>
         <$.Link
