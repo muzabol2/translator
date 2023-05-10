@@ -9,7 +9,10 @@ export default function Header() {
   return (
     <$.HeaderContainer>
       <$.LogoContainer>
-        <$.Logo src={Images.Logo} />
+        <$.Logo
+          alt="App logo"
+          src={Images.Logo}
+        />
         <$.Title>
           {T.components.header.title}
         </$.Title>
@@ -19,13 +22,19 @@ export default function Header() {
           href={APP_CONFIG.GITHUB_URL}
           target="_blank"
         >
-          <$.Logo src={Images.Github} />
+          <$.Logo
+            alt="Github logo"
+            src={Images.Github}
+          />
         </$.Link>
         <$.Link
           href={APP_CONFIG.YOUTUBE_URL}
           target="_blank"
         >
-          <$.Logo src={Images.YouTube} />
+          <$.Logo
+            alt="YouTube logo"
+            src={Images.YouTube}
+          />
         </$.Link>
       </$.LinkContainer>
     </$.HeaderContainer>

@@ -14,6 +14,7 @@ function ExchangeLanguage({
     <$.ExchangeContainer>
       {!hidden && (
         <$.Exchange
+          alt="Exchange Language"
           src={Images.Exchange}
           onClick={onClick}
         />
