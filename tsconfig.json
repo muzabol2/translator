@@ -21,10 +21,12 @@
     "noFallthroughCasesInSwitch": true,
   },
   "include": [
+    ".eslintrc.cjs",
+    "cypress",
+    "cypress.config.ts",
+    "src",
     "vite.dev.config.ts",
     "vite.prod.config.ts",
-    ".eslintrc.cjs",
-    "src",
   ],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
