@@ -10,6 +10,11 @@ Translator is a small frontend application for the [LibreTranslate API](https://
   * [React](https://legacy.reactjs.org/)
   * [use-debounce](https://www.npmjs.com/package/use-debounce)
   * [styled-components](https://styled-components.com/)
+* test libraries:
+  * [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/)
+  * [jest](https://jestjs.io/docs/tutorial-react) 
+  * [vitest](https://vitest.dev/guide/)
+  * [cypress](https://www.cypress.io/)
 
 ## Setup
 To use LibreTranslate API you need to pay but you can run it locally and then it is free. [Here](https://github.com/muzabol2/translator/blob/main/src/lib/config/config.ts#L6) is a config line that you can change. 
