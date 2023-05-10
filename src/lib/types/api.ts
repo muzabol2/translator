@@ -1,9 +1,9 @@
 export enum HttpMethod {
-   GET = 'get',
-   POST = 'post',
-   PUT = 'put',
-   PATCH = 'patch',
-   DELETE = 'delete',
+  GET = 'get',
+  POST = 'post',
+  PUT = 'put',
+  PATCH = 'patch',
+  DELETE = 'delete',
 }
 
 export type OnSuccess<Response> = (response: Response) => void

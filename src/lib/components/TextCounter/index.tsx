@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 
 type TextCounterProps = {
-   counter: number,
-   limit: number,
+  counter: number,
+  limit: number,
 }
 
 export const Counter = styled.div`
@@ -10,14 +10,14 @@ export const Counter = styled.div`
 `
 
 export default function TextCounter({
-   counter,
-   limit,
+  counter,
+  limit,
 }: TextCounterProps) {
-   return (
-      <Counter>
-         {counter}
-         /
-         {limit}
-      </Counter>
-   )
+  return (
+    <Counter>
+      {counter}
+      /
+      {limit}
+    </Counter>
+  )
 }

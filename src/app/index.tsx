@@ -11,68 +11,68 @@ import Footer from 'lib/components/Footer'
 import * as $ from './styles'
 
 function App() {
-   const T = useTranslations()
-   const [languages, setLanguages] = useState<Language[]>([])
-   const {
-      isLoading,
-      hasError,
-      fetch: getSupportedLanguages,
-   } = translatorActions.useSupportedLanguages(
-      setLanguages,
-   )
+  const T = useTranslations()
+  const [languages, setLanguages] = useState<Language[]>([])
+  const {
+    isLoading,
+    hasError,
+    fetch: getSupportedLanguages,
+  } = translatorActions.useSupportedLanguages(
+    setLanguages,
+  )
 
-   useEffect(() => {
-      getSupportedLanguages()
-   // eslint-disable-next-line react-hooks/exhaustive-deps
-   }, [])
+  useEffect(() => {
+    getSupportedLanguages()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
-   const getLayout = () => {
-      if (isLoading) {
-         return (
-            <$.FetchLoaderContainer>
-               <Loader>
-                  {T.components.app.loading}
-               </Loader>
-            </$.FetchLoaderContainer>
-         )
-      }
-
-      if (hasError) {
-         return (
-            <$.CenterContainer>
-               <Message
-                 message={T.components.app.error}
-                 withButton
-                 onClick={() => getSupportedLanguages()}
-               />
-            </$.CenterContainer>
-         )
-      }
-
-      if (languages?.length === 0) {
-         return (
-            <$.CenterContainer>
-               <Message
-                 message={T.components.app.empty}
-               />
-            </$.CenterContainer>
-         )
-      }
-
+  const getLayout = () => {
+    if (isLoading) {
       return (
-         <TranslatorScreen languages={languages} />
+        <$.FetchLoaderContainer>
+          <Loader>
+            {T.components.app.loading}
+          </Loader>
+        </$.FetchLoaderContainer>
       )
-   }
+    }
 
-   return (
-      <ThemeProvider theme={theme}>
-         <$.AppContainer>
-            <Header />
-            {getLayout()}
-            <Footer />
-         </$.AppContainer>
-      </ThemeProvider>
-   )
+    if (hasError) {
+      return (
+        <$.CenterContainer>
+          <Message
+            message={T.components.app.error}
+            withButton
+            onClick={() => getSupportedLanguages()}
+          />
+        </$.CenterContainer>
+      )
+    }
+
+    if (languages?.length === 0) {
+      return (
+        <$.CenterContainer>
+          <Message
+            message={T.components.app.empty}
+          />
+        </$.CenterContainer>
+      )
+    }
+
+    return (
+      <TranslatorScreen languages={languages} />
+    )
+  }
+
+  return (
+    <ThemeProvider theme={theme}>
+      <$.AppContainer>
+        <Header />
+        {getLayout()}
+        <Footer />
+      </$.AppContainer>
+    </ThemeProvider>
+  )
 }
 
 export default App

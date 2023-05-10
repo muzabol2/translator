@@ -1,18 +1,18 @@
 import * as $ from './styles'
 
 type Props = {
-   children?: React.ReactNode,
+  children?: React.ReactNode,
 }
 
 export default function Loader({ children }: Props) {
-   return (
-      <$.LoaderContainer>
-         <$.ActivityIndicator />
-         {children}
-      </$.LoaderContainer>
-   )
+  return (
+    <$.LoaderContainer>
+      <$.ActivityIndicator />
+      {children}
+    </$.LoaderContainer>
+  )
 }
 
 Loader.defaultProps = {
-   children: null,
+  children: null,
 }
