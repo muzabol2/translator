@@ -5,14 +5,14 @@ import * as $ from './styles'
 
 type ConfidenceProps = {
   autoDetectedLanguage?: AutoDetectedLanguage,
-  onClick(): void,
   hasError: boolean,
+  onClick(): void,
 }
 
 export default function Confidence({
   autoDetectedLanguage,
-  onClick,
   hasError,
+  onClick,
 }: ConfidenceProps) {
   const T = useTranslations()
   const { confidence, language } = autoDetectedLanguage ?? { confidence: 0, language: '' }
