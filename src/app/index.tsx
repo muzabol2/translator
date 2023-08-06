@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import { ThemeProvider } from 'styled-components'
-import { theme } from 'lib/styles'
+
 import { TranslatorScreen, translatorActions } from 'features/translator'
+import { theme } from 'lib/styles'
 import { Language } from 'lib/models/Language'
 import { useTranslations } from 'lib/hooks'
+
 import Loader from 'lib/components/Loader'
 import Message from 'lib/components/Message'
 import Header from 'lib/components/Header'
